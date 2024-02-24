@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block body %}
+{{data}}
+
+<div class="container2">
+	<div class="modal">
+		<div class="modal__header">
+			<span class="modal__title">New Post</span>
+		</div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% comment %} {{ form.as_p }} {% endcomment %}
+
+          <div class="modal__body">
+			<div class="input">
+				<label class="input__label">Post Name</label>
+				<input class="input__field" name="post_name" type="text" required> 
+			
+			</div>
+			<div class="input">
+				<label class="input__label">Description</label>
+				<textarea class="input__field input__field--textarea" name="desc" required></textarea>
+			</div>
+            <div class="input">
+				<label class="input__label">Image</label>
+				<input class="input__field" type="file" name="post_image" accept="image/*" required> 
+			</div>
+		</div>
+		<div class="modal__footer">
+			<button class="button button--primary" type="submit">Feed</button>
+		</div> 
+    </form>
+	</div>
+
+</div>
+
+
+
+{% endblock body %}
+

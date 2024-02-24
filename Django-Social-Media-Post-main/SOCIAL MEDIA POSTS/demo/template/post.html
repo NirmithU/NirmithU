@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+
+{% block body %}
+
+<div class="container mt-4 mb-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-8">
+            <div class="feed p-2">
+                <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white border">
+                    <div class="feed-text px-2">
+                        <h6 class="text-black-50 mt-2">What's on your mind</h6>
+                    </div>
+                    <a class="btn btn-primary" href="{% url "add_post" %}">New Post</a>
+                </div>
+               
+                  {% for p in data %}
+                  <div class="bg-white border mt-2">
+                    <div>
+                        <div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">
+                            <div class="d-flex flex-row align-items-center feed-text px-2"><i class="fa-solid fa-user fa-2xs rounded-circle"></i>
+                                <div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">{{p.user}}</span><span class="text-black-75 time">{{p.date_posted |naturaltime}}</span></div>
+                            </div>
+                            {% if  p.user.pk == user.pk %}
+                                <div class="dropdown">
+                                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1{{p.id}}" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Action
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1{{p.id}}">
+                                    {% if p.hide == True %}
+                                        <li><a class="dropdown-item" href="{% url "action_post" p.id %}">Show</a></li>
+                                    {% else %}
+                                        <li><a class="dropdown-item" href="{% url "action_post" p.id %}">Hide</a></li>
+                                    {% endif %}
+                                    <li><a class="dropdown-item bg-danger" href="{% url "delete_post" p.id %}"> Delete</a></li>
+                                  </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="p-2 px-3"><span>{{p.desc}}</span></div>
+                    <div class="feed-image p-2 px-3"><img class="img-fluid img-responsive" src="media/{{p.image}}" alt=""></div>
+                    
+                    <div class="d-flex justify-content-end socials p-2 py-3"> 
+                       {% if user in p.liked.all %} 
+                            <a href="{% url "like_post" p.id %}"> <i class="fa fa-thumbs-up p-2"></i></a>
+                       {% else %}
+                            <a href="{% url "like_post" p.id %}"> <i class="fa fa-thumbs-o-up p-2"></i></a>
+                       {% endif %}
+                       <a data-bs-toggle="collapse" href="#collapseExample{{p.id}}" role="button" aria-expanded="true" aria-controls="collapseExample" > <i class="fa fa-comments-o p-2"></i></a>
+                       <a href="http://"> <i class="fa fa-share p-2"></i></a>
+                    </div>
+                    <div class="collapse" id="collapseExample{{p.id}}">
+                        <div class="card card-body ">
+                          {% for cm in p.cmt.all %}
+                             <div class="d-flex flex-start">
+                                <img class="rounded-circle shadow-1-strong me-3"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                                <div>
+                                  <h6 class="fw-bold mb-1">{{cm.name_cmt}}</h6>
+                                  <div class="d-flex align-items-center mb-3">
+                                    <p class="mb-0">
+                                      {{cm.date_cmt |naturaltime}}
+                                        {% if  cm.name_cmt.pk == user.pk %}
+                                            <a class="b6  ml-2" href="{% url 'delete_comment' cm.id %}">
+                                                <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+                                            </a>
+                                        {% endif %}
+                                    </p>
+                                  </div>
+                                  <p class="mb-0">
+                                    {{cm.body}}
+                                  </p>
+                                </div>
+                              </div>
+                              
+                             <hr>
+                          {% endfor %}
+                          <!---comment input start-->
+                          <form method="post" action="{% url 'add_comment' p.id %}">
+                            {% csrf_token %}
+                           <div class="input-place">
+                            <input placeholder="Send a message." class="send-input-cmt" name="cmt_body" type="text" required>
+                            <div class="send-cmt">
+                               <a type="submit" ><svg class="send-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path fill="#6B6C7B" d="M481.508,210.336L68.414,38.926c-17.403-7.222-37.064-4.045-51.309,8.287C2.86,59.547-3.098,78.551,1.558,96.808 L38.327,241h180.026c8.284,0,15.001,6.716,15.001,15.001c0,8.284-6.716,15.001-15.001,15.001H38.327L1.558,415.193 c-4.656,18.258,1.301,37.262,15.547,49.595c14.274,12.357,33.937,15.495,51.31,8.287l413.094-171.409 C500.317,293.862,512,276.364,512,256.001C512,235.638,500.317,218.139,481.508,210.336z"></path></g></g></svg></a>
+                            </div>
+                          </div>
+                        </form>
+                          <!----comment input end-->
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}

@@ -1,0 +1,135 @@
+body{
+    background-color: linear-gradient(top left,red,pink,skyblue,lightgreen);
+    
+}
+.time{
+    font-size: 9px !important
+}
+.socials i{
+    margin-right: 14px;
+    font-size: 17px;
+    color: #d2c8c8;
+    cursor: pointer
+}
+.feed-image img{
+    width: 100%;
+    height: auto
+}
+
+.b6 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: .3s;
+    overflow: hidden;
+    position: relative;
+    float: right;
+  }
+  
+  .svgIcon {
+    width: 12px;
+    transition-duration: .3s;
+  }
+  
+  .svgIcon path {
+    fill: white;
+  }
+  
+  .b6:hover {
+    width: 100px;
+    border-radius: 50px;
+    transition-duration: .3s;
+    background-color: rgb(255, 69, 69);
+    align-items: center;
+  }
+  
+  .b6:hover .svgIcon {
+    width: 0px;
+    transition-duration: .3s;
+    transform: translateY(60%);
+  }
+  .b6:hover .svgIcon path{
+    fill: black;
+  } 
+  
+  .b6::before {
+    position: absolute;
+    top: -30px;
+    content: "Delete";
+    color: white;
+    transition-duration: .3s;
+    font-size: 2px;
+  }
+  
+  .b6:hover::before {
+    font-size: 13px;
+    opacity: 1;
+    transform: translateY(30px);
+    transition-duration: .3s;
+  }
+
+
+  /* comment input  */
+
+
+
+  .send-input-cmt {
+    outline: none;
+    display: flex;
+    border: none;
+    background: none;
+    height: 40px;
+    width:100%;
+    border-radius: 7px;
+    background: none;
+    color: white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 5px;
+  }
+  
+  .send-input-cmt::placeholder {
+    color: #828E9E;
+  }
+  
+  .input-place {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    margin-left: 10px;
+    align-items: center;
+    background-color: #40414F;
+    border-radius: 7px;
+    height: 40px;
+    width: 100%;
+    gap: 5px;
+    border: 1px solid #2E2F3A;
+  }
+  
+  .send-cmt {
+    width: 30px;
+    height: 30px;
+    background-color: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .send-icon {
+    width: 17px;
+  }
+
+
+  .form1{
+    background-color: red;
+  }

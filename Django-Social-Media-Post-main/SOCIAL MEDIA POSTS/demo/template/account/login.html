@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container1 mt-5">
+
+    <form class="form1" method="post">
+        {% csrf_token %}
+        <p class="title">Login </p>
+        <p class="message">Login now and get full access to our app. </p>
+        <label>
+            <input class="input" type="text" name='uname' placeholder="" required>
+            <span>Username</span>
+        </label> 
+            
+        <label>
+            <input class="input" type="password" name='pass1' placeholder="" required>
+            <span>Password</span>
+        </label>
+        <button class="submit" type="submit">Submit</button>
+        <p class="signin">Don't have an acount ? <a href="{% url "signup" %}">Signup</a> </p>
+    </form>
+
+</div>
+{% endblock body %}
+
+
+
+
+

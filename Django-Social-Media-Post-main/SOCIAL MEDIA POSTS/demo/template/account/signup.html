@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container1 mt-5">
+
+    <form class="form1" method="post">
+        {% csrf_token %}
+        <p class="title">Register </p>
+        <p class="message">Signup now and get full access to our app. </p>
+            <div class="flex">
+            <label>
+                <input class="input" type="name" name='fname' placeholder="" required>
+                <span>Firstname</span>
+            </label>
+    
+            <label>
+                <input class="input" type="name" name="lname" placeholder="" required>
+                <span>Lastname</span>
+            </label>
+        </div>  
+                
+        <label>
+            <input class="input" type="email" name='email' placeholder="" required>
+            <span>Email</span>
+        </label> 
+
+        <label>
+            <input class="input" type="name" name='uname' placeholder="" required>
+            <span>Username</span>
+        </label> 
+            
+        <label>
+            <input class="input" type="password" name='pass1' placeholder="" required>
+            <span>Password</span>
+        </label>
+        <label>
+            <input class="input" type="password" name='pass2' placeholder="" required>
+            <span>Confirm password</span>
+        </label>
+        <button class="submit" type="submit">Submit</button>
+        <p class="signin">Already have an acount ? <a href="{% url "login" %}">Signin</a> </p>
+    </form>
+
+</div>
+{% endblock body %}
+
+
+
+
+
